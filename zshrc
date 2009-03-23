@@ -55,7 +55,7 @@ alias reload!='. ~/.zshrc'
 alias df='df -h'
 alias diff='colordiff'
 alias grep='grep --color=auto'
-alias ping='ping -c 2'
+alias ping='ping -c 5'
 alias tail='tail -n100'
 alias pmb='puppet module build'
 alias fpull='!git fetch upstream && git merge @{u} --ff-only'
@@ -86,7 +86,7 @@ if [[ $(uname) = "Darwin" ]]; then
   alias start_watchr='cd /s/pe-dev-scripts/workflow && watchr installer.watchr'
   alias be='bundle exec'
 elif [[ $(uname) = "Linux" ]]; then
-  alias ll='ls -liAFG --color'
+  alias ll='ls -lihAFG --color'
 fi
 
 # For fixing ssh on tmux
