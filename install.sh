@@ -26,22 +26,11 @@ function os_type() {
   }
 }
 
-# function to detmine if user wants mutt
-function setup_mutt() {
-  read -p "Would you like to use and set up mutt (y/N)? " MUTT_ANS_INSTALL
-  if [[ $MUTT_ANS_INSTALL == 'y' || $MUTT_ANS_INSTALL == 'Y' ]]; then
-    export MUTT_INSTALL="true"
-  else
-    export MUTT_INSTALL="false"
-  fi
-}
-
 echo "Setting up Operating System..."
 
 set -e
 (
   os_type
-  setup_mutt
 
   # general package array
   declare -a packages=('vim' 'git' 'tree' 'htop' 'wget' 'curl')
@@ -54,7 +43,8 @@ set -e
   if [[ $OSPACKMAN == "homebrew" ]]; then
     echo "You are running homebrew."
     echo "Using Homebrew to install packages..."
-    brew install ${packages[@]} macvim the_silver_searcher
+    brew update
+    brew install ${packages[@]} the_silver_searcher
   elif [[ "$OSPACKMAN" == "yum" ]]; then
     echo "You are running yum."
     echo "Using apt-get to install packages...."
@@ -71,12 +61,9 @@ set -e
   echo "Installing oh-my-zsh"
   source update-zsh.sh
   echo "Installing dotfiles"
-  if [[ $MUTT_INSTALL == "true" ]]; then
-    git clone https://www.github.com/altercation/mutt-colors-solarized.git
-    rake install['mutt']
-  else
-    rake install
-  fi
+  rake install
+  mkdir -p ~/.vim/colors
+  cp vim-colors/256_jungle.vim ~/.vim/colors/256_jungle.vim
   echo "Installing vim vundles..."
   vim +BundleInstall +qall
   echo "Changing shells to ZSH"

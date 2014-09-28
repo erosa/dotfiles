@@ -1,7 +1,7 @@
 "-----------------------------------------------------------------------------
 " Vim Configuration (Dotfiles)
 "
-" Brian Cain
+" Eric Williamson
 "-----------------------------------------------------------------------------
 
 set nocompatible
@@ -40,21 +40,26 @@ Bundle 'gmarik/vundle'
 " Additional Bundles go here"
 Bundle 'L9'
 Bundle 'Gundo'
-Bundle 'kien/ctrlp.vim'
 Bundle 'flazz/vim-colorschemes'
+
+" Vim file tree explorer
 Bundle 'scrooloose/nerdtree'
+" syntax checking plugin for Vim
+Bundle 'scrooloose/syntastic'
+" Syntax checking for puppet
 Bundle 'hunner/vim-puppet'
+" Rainbow parans for clojure
 Bundle 'amdt/vim-niji'
-" Four needed for snipmate
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
-"
+" Tabular
+Bundle 'godlygeek/tabular'
+" Indentation guide
+Bundle 'nathanaelkane/vim-indent-guides'
+" Coffeescript support
 Bundle 'kchmck/vim-coffee-script'
 " Airline
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
+
 " Installing plugins the first time
 " If exists, skip
 if has_vundle == 0
@@ -62,9 +67,6 @@ if has_vundle == 0
     echo ""
     :BundleInstall
 endif
-
-" Shortcuts for CtrlP
-let g:ctrlp_map = '<c-p>'
 
 syntax enable
 filetype plugin indent on
@@ -74,6 +76,12 @@ nnoremap <silent> <C-U> :GundoToggle<CR>
 
 " Airline tabs
 let g:airline#extensions#tabline#enabled = 1
+
+
+"-----------------------------------------------------------------------------
+" Color scheme
+"-----------------------------------------------------------------------------
+colorscheme 256_jungle
 
 "-----------------------------------------------------------------------------
 " Encoding and general usability
@@ -158,6 +166,10 @@ set autoread
 set autoindent
 set smartindent
 set tabstop=2 shiftwidth=2 expandtab
+autocmd VimEnter * :IndentGuidesEnable
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 
 "-----------------------------------------------------------------------------
 " Buffers
@@ -165,69 +177,6 @@ set tabstop=2 shiftwidth=2 expandtab
 
 " Delete all buffers with \da
 nmap <silent> <leader>da :exec "1," . bufnr('$') . "bd"<cr>
-
-" Let me switch buffers with unsaved changes
-set hidden
-
-"-----------------------------------------------------------------------------
-" Folds and folding
-"-----------------------------------------------------------------------------
-
-set foldcolumn=0
-set foldmethod=marker "alternatives: indent, syntax, marker
-
-" Change what folded lines show (currently disabled)
-function! MyFoldText()
-    let nl = v:foldend - v:foldstart + 1
-    let comment = substitute(getline(v:foldstart),"^ *","",1)
-    let linetext = substitute(getline(v:foldstart+1),"^ *","",1)
-    let txt = '+ ' . linetext . ' : "' . comment . '" : length ' . nl
-    return txt
-endfunction
-" set foldtext=MyFoldText()
-
-" map <leader>mv :mkview<CR>
-" map <leader>lv :loadview<CR>
-
-"-----------------------------------------------------------------------------
-" Keymap stuff
-"-----------------------------------------------------------------------------
-
-" noremap <Up> gk
-" noremap <Down> gj
-
-" Toggle text wrapping with \w {{{
-noremap <silent> <Leader>w :call ToggleWrap()<CR>
-
-function ToggleWrap()
-  if &wrap
-    echo "Wrap OFF"
-    setlocal nowrap
-    set virtualedit=all
-    silent! nunmap <buffer> <Up>
-    silent! nunmap <buffer> <Down>
-    silent! nunmap <buffer> <Home>
-    silent! nunmap <buffer> <End>
-    silent! iunmap <buffer> <Up>
-    silent! iunmap <buffer> <Down>
-    silent! iunmap <buffer> <Home>
-    silent! iunmap <buffer> <End>
-  else
-    echo "Wrap ON"
-    setlocal wrap linebreak nolist
-    set virtualedit=
-    setlocal display+=lastline
-    noremap  <buffer> <silent> <Up>   gk
-    noremap  <buffer> <silent> <Down> gj
-    noremap  <buffer> <silent> <Home> g<Home>
-    noremap  <buffer> <silent> <End>  g<End>
-    inoremap <buffer> <silent> <Up>   <C-o>gk
-    inoremap <buffer> <silent> <Down> <C-o>gj
-    inoremap <buffer> <silent> <Home> <C-o>g<Home>
-    inoremap <buffer> <silent> <End>  <C-o>g<End>
-  endif
-endfunction
-" }}}
 
 noremap  <buffer> <silent> k gk
 noremap  <buffer> <silent> j gj
@@ -249,22 +198,6 @@ nmap <silent> <leader>vi :e $MYVIMRC<CR>
 nmap <silent> <leader>vh :e ~/Documents/References/vim.txt<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
-" Relative Number toggle (\rn) {{{
-nmap <silent> <leader>rn :call RelativeNumberToggle()<CR>
-function! RelativeNumberToggle()
-  if &number
-    echo "relativenumber ON"
-    setlocal relativenumber
-  else
-    if &relativenumber
-      echo "relativenumber OFF"
-      setlocal norelativenumber
-      setlocal number
-    endif
-  endif
-endfunction
-" }}}
-
 "-----------------------------------------------------------------------------
 " NERD Tree
 "-----------------------------------------------------------------------------
@@ -278,49 +211,15 @@ nmap <F7> :NERDTreeToggle<CR>
 " Close the NERD Tree with Shift-F7
 nmap <S-F7> :NERDTreeClose<CR>
 
-"-----------------------------------------------------------------------------
-" Latex-Suite
-"-----------------------------------------------------------------------------
-"let g:Tex_ViewRule_pdf = '/Applications/Skim.app'
-
-" REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
-filetype plugin on
-"
-" " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
-" " can be called correctly.
-set shellslash
-"
-" " IMPORTANT: grep will sometimes skip displaying the file name if you
-" " search in a singe file. This will confuse Latex-Suite. Set your grep
-" " program to always generate a file-name.
-set grepprg=grep\ -nH\ $*
-"
-" " OPTIONAL: This enables automatic indentation as you type.
-filetype indent on
-"
-" " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults
-" to
-" " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" " The following changes the default filetype back to 'tex':
-let g:tex_flavor='latex'
+" Auto show NERD Tree
+let NERDTreeShowHidden=1
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
 
 "-----------------------------------------------------------------------------
-" Latex-Box
+" Custom commands
 "-----------------------------------------------------------------------------
+" typing :w!! will auto exapnd to :w !sudo tee % so you can save a readonly file
+cmap w!! w !sudo tee >/dev/null %
+command! -nargs=1 -range TabFirst exec <line1> . ',' . <line2> . 'Tabularize /^[^' . escape(<q-args>, '\^$.[?*~') . ']*\zs' . escape(<q-args>, '\^$.[?*~')
 
-" These don't work (for me, at least)
-" Use \la instead, from ftplugin/tex.vim
-" let g:LatexBox_viewer = 'skim'
-"let g:LatexBox_latexmk_options = '-pvc'
-
-"-----------------------------------------------------------------------------
-" utl.vim
-" Plugin for handling hyperlinks
-"-----------------------------------------------------------------------------
-
-" Set how Vim opens hyperlinks
-let g:utl_cfg_hdl_scm_http_system = 'silent !open "%u"'
-
-" Open hyperlinks with \fo
-" Think "Firefox-open"
-noremap <leader>fo :Utl<CR>

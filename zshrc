@@ -13,123 +13,37 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 
 # My custom theme
-ZSH_THEME="brian"
-
-# ssh
-alias datviper="ssh bccain@viper.cis.ksu.edu"
-alias datcg="ssh bccain@cougar.cis.ksu.edu"
-alias ksuX="ssh -X bccain@cislinux.cis.ksu.edu"
-
-# rake
-alias rake='noglob rake'
-
-# IRC connection
-alias goirc="ssh -t bccain@viper.cis.ksu.edu screen -raAd"
-
-# Reload ZSH Config
-alias reload='. ~/.zshrc'
-
-# pianobar
-alias pb="pianobar"
-
-# ls
-alias ls="ls -GF"
-alias l="ls -Glah"
-alias la='ls -GA'
-
-# tree with color
-alias tree="tree -C"
-
-# grc overrides for ls
-# Made possible through contributions from generous benefactors like
-# `brew install coreutils`
-if $(gls &>/dev/null)
-then
-  alias ls="gls -F --color"
-  alias ll="gls -lAh --color"
-  alias l="gls -lh --color"
-  alias la='gls -A --color'
-fi
-
-# VIM
-alias v='vim'
-alias vf='vim -f'
-
-# Latex
-alias lpdf='pdflatex'
-alias lrtf='latex2rtf'
-
-# Word is for opening RTF files quickly in Microsoft Word
-alias word='open -a "Microsoft Word"'
-
-# git
-alias gl='git pull'
-alias glo='git pull origin master'
-alias gp='git push'
-alias gpo='git push origin master'
-alias gd='git diff'
-alias gc='git commit'
-alias gca='git commit -a'
-alias go='git checkout'
-alias gb='git branch'
-alias gs='git status'
-alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
-alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG*'
-
-# todo.txt-cli
-function t() {
-  if [ $# -eq 0 ]; then
-    todo.sh ls
-  else
-    todo.sh $*
-  fi
-}
-alias n="t ls +next"
-
-# rails
-alias sc='script/console'
-alias ss='script/server'
-alias sg='script/generate'
-alias a='autotest -rails'
-alias tlog='tail -f log/development.log'
-alias scaffold='script/generate nifty_scaffold'
-alias migrate='rake db:migrate db:test:clone'
-alias rst='touch tmp/restart.txt'
-
-# commands starting with % for pasting from web
-alias %=' '
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git rvm brew)
+ZSH_THEME="eric"
+LSCOLORS="gxfxcxdxbxegedabagacad"
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
+# OS Agnostic aliases
+alias reload!='. ~/.zshrc'
+
+alias df='df -h'
+alias diff='colordiff'
+alias grep='grep --color=auto'
+alias ping='ping -c 2'
+alias tail='tail -n100'
+alias pmb='puppet module build'
+alias fpull='!git fetch upstream && git merge @{u} --ff-only'
+alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG*'
+
+# Load additional config files based on the OS
+if [[ $(uname) = "Darwin" ]]; then
+  # Vagrant aliases
+  alias v="VAGRANT_CWD=/s/v vagrant"
+  alias vd='v destroy -f'
+  alias vup='v up'
+  alias vs='v suspend'
+  alias vstat='v status'
+
+  # Misc aliases
+  alias updatedb='sudo /usr/libexec/locate.updatedb'
+  alias ll='ls -liAFG'
+  alias start_watchr='cd /s/pe-dev-scripts/workflow && watchr installer.watchr'
+  alias be='bundle exec'
+elif [[ $(uname) = "Linux" ]]; then
+  alias ll='ls -liAFG --color'
+fi
