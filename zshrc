@@ -16,7 +16,27 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="eric"
 LSCOLORS="gxfxcxdxbxegedabagacad"
 
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+if [ -f `brew --prefix`/Cellar/z/1.8/etc/profile.d/z.sh ]; then
+  . `brew --prefix`/Cellar/z/1.8/etc/profile.d/z.sh
+fi
+
 source $ZSH/oh-my-zsh.sh
+plugins=(osx ruby)
+
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
+
+# don't expand aliases _before_ completion has finished
+setopt complete_aliases
+
+# Show completion on first TAB
+setopt menucomplete
+unalias git
+
+
 
 # OS Agnostic aliases
 alias reload!='. ~/.zshrc'
@@ -29,6 +49,16 @@ alias tail='tail -n100'
 alias pmb='puppet module build'
 alias fpull='!git fetch upstream && git merge @{u} --ff-only'
 alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG*'
+alias gl='git pull --prune'
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gp='git push origin HEAD'
+alias gd='git diff'
+alias gc='git commit'
+alias gca='git commit -a'
+alias gco='git checkout'
+alias gb='git branch'
+alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
+alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 
 # Load additional config files based on the OS
 if [[ $(uname) = "Darwin" ]]; then
@@ -47,3 +77,4 @@ if [[ $(uname) = "Darwin" ]]; then
 elif [[ $(uname) = "Linux" ]]; then
   alias ll='ls -liAFG --color'
 fi
+

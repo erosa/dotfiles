@@ -74,9 +74,6 @@ filetype plugin indent on
 " Gundo mapping
 nnoremap <silent> <C-U> :GundoToggle<CR>
 
-" Airline tabs
-let g:airline#extensions#tabline#enabled = 1
-
 
 "-----------------------------------------------------------------------------
 " Color scheme
@@ -99,9 +96,8 @@ set encoding=utf-8
 set scrolloff=3
 set showmode
 set showcmd
-set wildmenu
-set wildmode=list:longest
-set visualbell
+"set wildmenu
+"set wildmode=list:longest
 set ttyfast
 set ruler
 set backspace=indent,eol,start
@@ -110,7 +106,6 @@ set backspace=indent,eol,start
 set number
 
 " Vim window stuff
-set linebreak
 set guifont=Inconsolata:h15
 
 " Show tabs and trailing whitespace visually
@@ -145,19 +140,11 @@ if has("syntax")
     syntax on
 endif
 
-" Paragraph formatting stuff:
-set formatprg=par
-
-" Store temporary files in a central location
-set backupdir=~/.vim/vim-tmp,~/.tmp,~/tmp,~/var/tmp,/tmp
-set directory=~/.vim/vim-tmp,~/.tmp,~/tmp,~/var/tmp,/tmp
-
+" Auto reload vim config anytime i make changes
+autocmd! BufWritePost *vimrc source %
 
 " Omnifunction
 set omnifunc=syntaxcomplete#Complete
-
-" If a file has been changed outside of Vim, reload it inside of Vim
-set autoread
 
 "-----------------------------------------------------------------------------
 " Spacing
@@ -182,13 +169,6 @@ noremap  <buffer> <silent> k gk
 noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
-set mouse=a
-
-" Keymappings for :e
-map <leader>ew :e <C-R>=expand("%:p:h")."/"<CR>
-map <leader>es :sp <C-R>=expand("%:p:h")."/"<CR>
-map <leader>ev :vsp <C-R>=expand("%:p:h")."/"<CR>
-map <leader>et :tabe <C-R>=expand("%:p:h")."/"<CR>
 
 " Map for omnicomplete
 inoremap <F8> <C-X><C-O>
