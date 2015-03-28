@@ -1,5 +1,9 @@
 export EDITOR='vim'
-export PATH="$HOME/bin:$HOME/.bin:/usr/local/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
+if [ -d "/usr/local/homebrew" ]; then
+  export PATH="$HOME/bin:$HOME/.bin:/usr/local/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
+else
+  export PATH="$HOME/bin:$HOME/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
+fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
@@ -17,8 +21,10 @@ ZSH_THEME="eric"
 LSCOLORS="gxfxcxdxbxegedabagacad"
 
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
-if [ -f `brew --prefix`/Cellar/z/1.8/etc/profile.d/z.sh ]; then
-  . `brew --prefix`/Cellar/z/1.8/etc/profile.d/z.sh
+if hash brew 2>/dev/null; then
+  if [ -f `brew --prefix`/Cellar/z/1.8/etc/profile.d/z.sh ]; then
+    . `brew --prefix`/Cellar/z/1.8/etc/profile.d/z.sh
+  fi
 fi
 
 source $ZSH/oh-my-zsh.sh
@@ -34,7 +40,7 @@ setopt complete_aliases
 
 # Show completion on first TAB
 setopt menucomplete
-unalias git
+#unalias git
 
 
 
@@ -77,4 +83,3 @@ if [[ $(uname) = "Darwin" ]]; then
 elif [[ $(uname) = "Linux" ]]; then
   alias ll='ls -liAFG --color'
 fi
-
