@@ -48,8 +48,6 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 " Syntax checking for puppet
 Bundle 'hunner/vim-puppet'
-" Rainbow parans for clojure
-Bundle 'amdt/vim-niji'
 " Tabular
 Bundle 'godlygeek/tabular'
 " Indentation guide
