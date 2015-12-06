@@ -28,7 +28,7 @@ if hash brew 2>/dev/null; then
 fi
 
 source $ZSH/oh-my-zsh.sh
-plugins=(osx ruby)
+plugins=(osx ruby rake)
 
 
 # initialize autocomplete here, otherwise functions won't be loaded

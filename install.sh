@@ -71,6 +71,9 @@ function setup_git() {
   git config --global color.branch auto
   # extras
   git config --global alias.lg log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset' --abbrev-commit
+  git config --global alias.pr "! f() { git fetch $1 pull/$2/head:PR-$2-$3 && git checkout PR-$2-$3;}; f"
+  git config --global alias.plclone "! f() { cd ${GIT_PREFIX:-.} && git clone git@github.com:puppetlabs/$1.git -o puppetlabs && cd $1 && git remote add ericwilliamson git@github.com:ericwilliamson/$1.git; }; f"
+
 }
 
 echo "Setting up Operating System..."
