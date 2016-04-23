@@ -20,15 +20,15 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="eric"
 LSCOLORS="gxfxcxdxbxegedabagacad"
 
-[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 if hash brew 2>/dev/null; then
-  if [ -f `brew --prefix`/Cellar/z/1.8/etc/profile.d/z.sh ]; then
-    . `brew --prefix`/Cellar/z/1.8/etc/profile.d/z.sh
+  if [ -f `brew --prefix`/Cellar/z/1.9/etc/profile.d/z.sh ]; then
+    . `brew --prefix`/Cellar/z/1.9/etc/profile.d/z.sh
   fi
 fi
 
 source $ZSH/oh-my-zsh.sh
 plugins=(osx ruby rake)
+eval "$(rbenv init -)"
 
 
 # initialize autocomplete here, otherwise functions won't be loaded

@@ -144,6 +144,9 @@ autocmd! BufWritePost *vimrc source %
 " Omnifunction
 set omnifunc=syntaxcomplete#Complete
 
+" Enable spell check for markdown, git commits
+autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd FileType gitcommit setlocal spell
 "-----------------------------------------------------------------------------
 " Spacing
 "-----------------------------------------------------------------------------
@@ -151,6 +154,10 @@ set omnifunc=syntaxcomplete#Complete
 set autoindent
 set smartindent
 set tabstop=2 shiftwidth=2 expandtab
+
+" Set line width to 90 when writing markdown
+autocmd BufRead,BufNewFile *.md setlocal tw=90
+
 autocmd VimEnter * :IndentGuidesEnable
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
@@ -201,3 +208,4 @@ autocmd VimEnter * wincmd p
 cmap w!! w !sudo tee >/dev/null %
 command! -nargs=1 -range TabFirst exec <line1> . ',' . <line2> . 'Tabularize /^[^' . escape(<q-args>, '\^$.[?*~') . ']*\zs' . escape(<q-args>, '\^$.[?*~')
 
+let g:puppet_align_hashes=0
