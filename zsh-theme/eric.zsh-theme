@@ -36,7 +36,7 @@ git_custom_status() {
   [ -n "$git_where" ] && echo "[${git_where#(refs/heads/|tags/)}]"
 }
 
-export PROMPT='[$USER@$(hostname -f)]%{$fg[cyan]%}[%~% ]%{$reset_color%}%B$%b '
+export PROMPT='[%D{%H:%M:%S}][$USER@$(hostname -f)]%{$fg[cyan]%}[%~% ]%{$reset_color%}%B$%b '
 
 precmd() {
   title "zsh" "%m" "%55<...<%~"

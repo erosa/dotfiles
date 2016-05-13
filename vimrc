@@ -47,7 +47,7 @@ Bundle 'scrooloose/nerdtree'
 " syntax checking plugin for Vim
 Bundle 'scrooloose/syntastic'
 " Syntax checking for puppet
-Bundle 'hunner/vim-puppet'
+Bundle 'rodjek/vim-puppet'
 " Tabular
 Bundle 'godlygeek/tabular'
 " Indentation guide
