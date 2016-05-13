@@ -70,7 +70,7 @@ function setup_git() {
   git config --global color.status auto
   git config --global color.branch auto
   # extras
-  git config --global alias.lg log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset' --abbrev-commit
+  git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset' --abbrev-commit"
   git config --global alias.pr "! f() { git fetch $1 pull/$2/head:PR-$2-$3 && git checkout PR-$2-$3;}; f"
   git config --global alias.plclone "! f() { cd ${GIT_PREFIX:-.} && git clone git@github.com:puppetlabs/$1.git -o puppetlabs && cd $1 && git remote add ericwilliamson git@github.com:ericwilliamson/$1.git; }; f"
 
@@ -96,9 +96,10 @@ set -e
     brew install "${packages[@]}" "${macpackages[@]}"
   elif [[ "$OSPACKMAN" == "yum" ]]; then
     echo "You are running yum."
-    echo "Using apt-get to install packages...."
+    echo "Using yum to install packages...."
     sudo yum update
-    sudo yum install "${packages[@]}" zsh
+    sudo yum install -y epel-release
+    sudo yum install -y "${packages[@]}" zsh
   elif [[ "$OSPACKMAN" == "aptget" ]]; then
     echo "You are running apt-get"
     echo "Using apt-get to install packages...."
@@ -113,14 +114,20 @@ set -e
   source update-zsh.sh
   echo "Installing dotfiles"
   symlink_files
+  echo "Installing vim-colors"
+  $(ln -sf "$PWD/vim-colors" "$HOME/.vim/colors")
+
   echo "Installing vim vundles..."
   vim +BundleInstall +qall
-  echo "Installing vim-colors"
-  $(ln -s "$PWD/vim-colors" "$HOME/.vim/colors")
   echo "Changing shells to ZSH"
   chsh -s /bin/zsh
+
+  echo "Configuring git"
+  setup_git
 
   echo "Operating System setup complete."
   echo "Reloading session"
   exec zsh
+
+
 )

@@ -5,11 +5,11 @@ else
   export PATH="$HOME/bin:$HOME/.bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
 fi
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -28,7 +28,10 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 plugins=(osx ruby rake)
-eval "$(rbenv init -)"
+
+if hash rbenv 2>/dev/null; then
+  eval "$(rbenv init -)"
+fi
 
 
 # initialize autocomplete here, otherwise functions won't be loaded
