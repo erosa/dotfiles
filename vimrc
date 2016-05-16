@@ -55,8 +55,11 @@ Bundle 'nathanaelkane/vim-indent-guides'
 " Coffeescript support
 Bundle 'kchmck/vim-coffee-script'
 " Airline
-Bundle 'bling/vim-airline'
+"Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
+" theme
+Plugin 'jacoborus/tender'
+Plugin 'itchyny/lightline.vim'
 
 " Installing plugins the first time
 " If exists, skip
@@ -76,7 +79,10 @@ nnoremap <silent> <C-U> :GundoToggle<CR>
 "-----------------------------------------------------------------------------
 " Color scheme
 "-----------------------------------------------------------------------------
-colorscheme 256_jungle
+"colorscheme 256_jungle
+colorscheme tender
+let g:lightline = { 'colorscheme': 'tender' }
+
 
 "-----------------------------------------------------------------------------
 " Encoding and general usability
@@ -138,6 +144,8 @@ if has("syntax")
     syntax on
 endif
 
+set background=dark
+
 " Auto reload vim config anytime i make changes
 autocmd! BufWritePost *vimrc source %
 
@@ -158,10 +166,10 @@ set tabstop=2 shiftwidth=2 expandtab
 " Set line width to 90 when writing markdown
 autocmd BufRead,BufNewFile *.md setlocal tw=90
 
-autocmd VimEnter * :IndentGuidesEnable
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+"autocmd VimEnter * :IndentGuidesEnable
+"let g:indent_guides_auto_colors = 0
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 
 "-----------------------------------------------------------------------------
 " Buffers
