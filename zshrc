@@ -24,6 +24,8 @@ if hash brew 2>/dev/null; then
   if [ -f `brew --prefix`/Cellar/z/1.9/etc/profile.d/z.sh ]; then
     . `brew --prefix`/Cellar/z/1.9/etc/profile.d/z.sh
   fi
+else
+  . ~/.z.sh
 fi
 
 source $ZSH/oh-my-zsh.sh
@@ -86,3 +88,8 @@ if [[ $(uname) = "Darwin" ]]; then
 elif [[ $(uname) = "Linux" ]]; then
   alias ll='ls -liAFG --color'
 fi
+
+# For fixing ssh on tmux
+fixssh() {
+    eval $(tmux show-env |sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
+}
