@@ -81,6 +81,7 @@ nnoremap <silent> <C-U> :GundoToggle<CR>
 "-----------------------------------------------------------------------------
 "colorscheme 256_jungle
 colorscheme tender
+let g:tender_lightline = 1
 let g:lightline = { 'colorscheme': 'tender' }
 
 
