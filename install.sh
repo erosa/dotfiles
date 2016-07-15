@@ -127,6 +127,7 @@ set -e
 
   echo "Operating System setup complete."
   echo "Reloading session"
+  touch ~/.z.sh
   exec zsh
 
 
