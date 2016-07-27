@@ -43,7 +43,7 @@ Bundle 'Gundo'
 Bundle 'flazz/vim-colorschemes'
 
 " Vim file tree explorer
-Bundle 'scrooloose/nerdtree'
+"Bundle 'scrooloose/nerdtree'
 " syntax checking plugin for Vim
 Bundle 'scrooloose/syntastic'
 " Syntax checking for puppet
@@ -197,18 +197,18 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 "-----------------------------------------------------------------------------
 
 " Invoke NERD Tree with \nt
-nmap <leader>nt :NERDTree<CR>
+"nmap <leader>nt :NERDTree<CR>
 
 " Toggle the NERD Tree on an off with F7
-nmap <F7> :NERDTreeToggle<CR>
+"nmap <F7> :NERDTreeToggle<CR>
 
 " Close the NERD Tree with Shift-F7
-nmap <S-F7> :NERDTreeClose<CR>
+"nmap <S-F7> :NERDTreeClose<CR>
 
 " Auto show NERD Tree
-let NERDTreeShowHidden=1
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+"let NERDTreeShowHidden=1
+"autocmd VimEnter * NERDTree
+"autocmd VimEnter * wincmd p
 
 "-----------------------------------------------------------------------------
 " Custom commands
@@ -218,3 +218,7 @@ cmap w!! w !sudo tee >/dev/null %
 command! -nargs=1 -range TabFirst exec <line1> . ',' . <line2> . 'Tabularize /^[^' . escape(<q-args>, '\^$.[?*~') . ']*\zs' . escape(<q-args>, '\^$.[?*~')
 
 let g:puppet_align_hashes=0
+
+set expandtab
+set tabstop=2
+set shiftwidth=2
