@@ -93,3 +93,5 @@ fi
 fixssh() {
     eval $(tmux show-env |sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
 }
+
+export PROMPT='[%D{%H:%M:%S}][$USER@$(hostname -f)]%{$fg[cyan]%}[%~% ]%{$reset_color%}%B$%b '
