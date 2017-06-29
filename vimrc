@@ -2,7 +2,7 @@
 " Vim Configuration (Dotfiles)
 "
 " Eric Williamson
-"-----------------------------------------------------------------------------
+"----------------------------------------------------------------------------
 
 set nocompatible
 let &t_Co=256
@@ -43,7 +43,7 @@ Bundle 'Gundo'
 Bundle 'flazz/vim-colorschemes'
 
 " Vim file tree explorer
-"Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdtree'
 " syntax checking plugin for Vim
 Bundle 'scrooloose/syntastic'
 " Syntax checking for puppet
@@ -80,9 +80,9 @@ nnoremap <silent> <C-U> :GundoToggle<CR>
 " Color scheme
 "-----------------------------------------------------------------------------
 "colorscheme 256_jungle
-colorscheme tender
-let g:tender_lightline = 1
-let g:lightline = { 'colorscheme': 'tender' }
+colorscheme Monokai
+"let g:tender_lightline = 1
+let g:lightline = { 'colorscheme': 'wombat' }
 
 
 "-----------------------------------------------------------------------------
@@ -145,8 +145,6 @@ if has("syntax")
     syntax on
 endif
 
-set background=dark
-
 " Auto reload vim config anytime i make changes
 autocmd! BufWritePost *vimrc source %
 
@@ -197,16 +195,16 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 "-----------------------------------------------------------------------------
 
 " Invoke NERD Tree with \nt
-"nmap <leader>nt :NERDTree<CR>
+nmap <leader>nt :NERDTree<CR>
 
 " Toggle the NERD Tree on an off with F7
-"nmap <F7> :NERDTreeToggle<CR>
+nmap <F7> :NERDTreeToggle<CR>
 
 " Close the NERD Tree with Shift-F7
-"nmap <S-F7> :NERDTreeClose<CR>
+nmap <S-F7> :NERDTreeClose<CR>
 
 " Auto show NERD Tree
-"let NERDTreeShowHidden=1
+let NERDTreeShowHidden=1
 "autocmd VimEnter * NERDTree
 "autocmd VimEnter * wincmd p
 
