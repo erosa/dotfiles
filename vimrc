@@ -54,6 +54,8 @@ Bundle 'godlygeek/tabular'
 Bundle 'nathanaelkane/vim-indent-guides'
 " Coffeescript support
 Bundle 'kchmck/vim-coffee-script'
+" Javascript support
+Bundle 'pangloss/vim-javascript'
 " Airline
 "Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
@@ -80,9 +82,9 @@ nnoremap <silent> <C-U> :GundoToggle<CR>
 " Color scheme
 "-----------------------------------------------------------------------------
 "colorscheme 256_jungle
-colorscheme tender
+colorscheme Monokai
 let g:tender_lightline = 1
-let g:lightline = { 'colorscheme': 'tender' }
+let g:lightline = { 'colorscheme': 'wombat' }
 
 
 "-----------------------------------------------------------------------------

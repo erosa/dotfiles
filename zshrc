@@ -17,7 +17,7 @@ export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 # time that oh-my-zsh is loaded.
 
 # My custom theme
-ZSH_THEME="eric"
+ZSH_THEME="robbyrussell"
 LSCOLORS="gxfxcxdxbxegedabagacad"
 
 if hash brew 2>/dev/null; then
@@ -94,4 +94,10 @@ fixssh() {
     eval $(tmux show-env |sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
 }
 
-export PROMPT='[$USER@$(hostname -f)]%{$fg[cyan]%}[%~% ]%{$reset_color%}%B$%b '
+#export PROMPT='[$USER@$(hostname -f)]%{$fg[cyan]%}[%~% ]%{$reset_color%}%B$%b '
+
+export CLASSPATH=".:/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH"
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias grun='java org.antlr.v4.gui.TestRig'
+
+alias CAPS_LOCK_OFF="python -c 'from ctypes import *; X11 = cdll.LoadLibrary("libX11.so.6"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'"
