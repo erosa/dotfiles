@@ -115,6 +115,7 @@ set -e
   echo "Installing dotfiles"
   symlink_files
   echo "Installing vim-colors"
+  mkdir -p $HOME/.vim/colors
   $(ln -sf "$PWD/vim-colors" "$HOME/.vim/colors")
 
   echo "Installing vim vundles..."

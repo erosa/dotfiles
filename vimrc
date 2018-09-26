@@ -62,6 +62,15 @@ Bundle 'tpope/vim-fugitive'
 " theme
 Plugin 'jacoborus/tender'
 Plugin 'itchyny/lightline.vim'
+" Syntax highlighting for Ember Handlebars
+Bundle 'joukevandermaas/vim-ember-hbs'
+" Bracket & HTML/XML tag auto-closing
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'alvan/vim-closetag'
+" Syntax highlighting for typescript
+Bundle 'leafgarland/typescript-vim'
+" Syntax highlighting for kotlin
+Plugin 'udalov/kotlin-vim'
 
 " Installing plugins the first time
 " If exists, skip
@@ -220,6 +229,8 @@ cmap w!! w !sudo tee >/dev/null %
 command! -nargs=1 -range TabFirst exec <line1> . ',' . <line2> . 'Tabularize /^[^' . escape(<q-args>, '\^$.[?*~') . ']*\zs' . escape(<q-args>, '\^$.[?*~')
 
 let g:puppet_align_hashes=0
+
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.hbs,*.jsx,*.xml'
 
 set expandtab
 set tabstop=2

@@ -56,7 +56,7 @@ alias df='df -h'
 alias diff='colordiff'
 alias grep='grep --color=auto'
 alias ping='ping -c 5'
-alias tail='tail -n100'
+#alias tail='tail -n 100'
 alias pmb='puppet module build'
 alias fpull='!git fetch upstream && git merge @{u} --ff-only'
 alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG*'
@@ -70,6 +70,8 @@ alias gco='git checkout'
 alias gb='git branch'
 alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
+
+alias pmjt="python -m json.tool"
 
 # Load additional config files based on the OS
 if [[ $(uname) = "Darwin" ]]; then
@@ -101,3 +103,8 @@ alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSP
 alias grun='java org.antlr.v4.gui.TestRig'
 
 alias CAPS_LOCK_OFF="python -c 'from ctypes import *; X11 = cdll.LoadLibrary("libX11.so.6"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'"
+
+export JAVA8_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA10_HOME=$(/usr/libexec/java_home -v 10)
+export DEFAULT_JAVA_VERSION="1.8"
+export JAVA_HOME=$(/usr/libexec/java_home -v ${DEFAULT_JAVA_VERSION})
