@@ -29,7 +29,7 @@ else
 fi
 
 source $ZSH/oh-my-zsh.sh
-plugins=(osx ruby rake)
+plugins=(osx ruby rake git gitfast)
 
 if hash rbenv 2>/dev/null; then
   eval "$(rbenv init -)"
@@ -41,7 +41,7 @@ autoload -U compinit
 compinit
 
 # don't expand aliases _before_ completion has finished
-setopt complete_aliases
+# setopt complete_aliases
 
 # Show completion on first TAB
 setopt menucomplete
@@ -70,6 +70,17 @@ alias gco='git checkout'
 alias gb='git branch'
 alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
+
+git() {
+  if [[ $@ == "push origin master" ]]; then
+    read "?you're in `pwd`. You sure?"
+    if [[ $REPLY =~ ^[Yy]$ ]] then
+      /usr/bin/git push origin master
+    fi
+  else
+    /usr/bin/git $@
+  fi
+}
 
 alias pmjt="python -m json.tool"
 
@@ -108,3 +119,11 @@ export JAVA8_HOME=$(/usr/libexec/java_home -v 1.8)
 export JAVA10_HOME=$(/usr/libexec/java_home -v 10)
 export DEFAULT_JAVA_VERSION="1.8"
 export JAVA_HOME=$(/usr/libexec/java_home -v ${DEFAULT_JAVA_VERSION})
+
+
+alias kbeta='kubectl --context=beta'
+alias kstaging='kubectl --context=beta --namespace=staging'
+alias kprod='kubectl --context=prod'
+if [ /usr/local/homebrew/bin/kubectl ]; then source <(kubectl completion zsh); fi
+
+eval "$(pyenv init -)"
