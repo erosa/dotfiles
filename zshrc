@@ -29,7 +29,7 @@ else
 fi
 
 source $ZSH/oh-my-zsh.sh
-plugins=(osx ruby rake)
+plugins=(osx ruby rake git gitfast)
 
 if hash rbenv 2>/dev/null; then
   eval "$(rbenv init -)"
@@ -41,7 +41,7 @@ autoload -U compinit
 compinit
 
 # don't expand aliases _before_ completion has finished
-setopt complete_aliases
+# setopt complete_aliases
 
 # Show completion on first TAB
 setopt menucomplete
@@ -71,6 +71,19 @@ alias gb='git branch'
 alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 
+git() {
+  if [[ $@ == "push origin master" ]]; then
+    read "?you're in `pwd`. You sure?"
+    if [[ $REPLY =~ ^[Yy]$ ]] then
+      /usr/bin/git push origin master
+    fi
+  else
+    /usr/bin/git $@
+  fi
+}
+
+alias pmjt="python -m json.tool"
+
 # Load additional config files based on the OS
 if [[ $(uname) = "Darwin" ]]; then
   # Vagrant aliases
@@ -94,5 +107,25 @@ fixssh() {
     eval $(tmux show-env |sed -n 's/^\(SSH_[^=]*\)=\(.*\)/export \1="\2"/p')
 }
 
-export PROMPT='[%D{%H:%M:%S}][$USER@$(hostname -f)]%{$fg[cyan]%}[%~% ]%{$reset_color%}
-%B$%b '
+#export PROMPT='[%D{%H:%M:%S}][$USER@$(hostname -f)]%{$fg[cyan]%}[%~% ]%{$reset_color%}
+#%B$%b '
+#export PROMPT='[$USER@$(hostname -f)]%{$fg[cyan]%}[%~% ]%{$reset_color%}%B$%b '
+
+export CLASSPATH=".:/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH"
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias grun='java org.antlr.v4.gui.TestRig'
+
+alias CAPS_LOCK_OFF="python -c 'from ctypes import *; X11 = cdll.LoadLibrary("libX11.so.6"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'"
+
+export JAVA8_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA10_HOME=$(/usr/libexec/java_home -v 10)
+export DEFAULT_JAVA_VERSION="1.8"
+export JAVA_HOME=$(/usr/libexec/java_home -v ${DEFAULT_JAVA_VERSION})
+
+
+alias kbeta='kubectl --context=beta'
+alias kstaging='kubectl --context=beta --namespace=staging'
+alias kprod='kubectl --context=prod'
+if [ /usr/local/homebrew/bin/kubectl ]; then source <(kubectl completion zsh); fi
+
+eval "$(pyenv init -)"

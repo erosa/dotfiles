@@ -60,6 +60,17 @@ Bundle 'tpope/vim-fugitive'
 " theme
 Plugin 'jacoborus/tender'
 Plugin 'itchyny/lightline.vim'
+" Syntax highlighting for Ember Handlebars
+Bundle 'joukevandermaas/vim-ember-hbs'
+" Bracket & HTML/XML tag auto-closing
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'alvan/vim-closetag'
+" Syntax highlighting for typescript
+Bundle 'leafgarland/typescript-vim'
+" Syntax highlighting for kotlin
+Plugin 'udalov/kotlin-vim'
+" Syntax highlighting for Elixir
+Plugin 'elixir-editors/vim-elixir'
 
 " Installing plugins the first time
 " If exists, skip
